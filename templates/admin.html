@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>管理员界面</title>
+    <link href="/static/css/layui.css" rel="stylesheet">
+    <style>
+        body {
+            background: url("/static/img/admin.jpg") no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .container {
+            width: 500px;
+            height: 400px;
+            margin: 100px auto;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .company-name {
+            position: absolute; /* 绝对定位 */
+            top: 20px; /* 距离顶部的距离 */
+            left: 20px; /* 距离左边的距离 */
+            font-size: 1.5em; /* 字体大小 */
+            font-weight: bold; /* 加粗 */
+            color: rgba(255, 255, 255, 0.5); /* 浅色，增加透明度 */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* 加强文字阴影 */
+            font-family: 'Microsoft YaHei', sans-serif; /* 字体 */
+            padding: 10px; /* 内边距 */
+            background-image: url('/static/img/company.png'); /* 背景图 */
+            background-size: cover; /* 背景图覆盖 */
+            background-position: center; /* 背景图居中 */
+            border-radius: 8px; /* 边框圆角 */
+            /* 设置背景色以便在图片未加载时有颜色显示 */
+            background-color: rgba(255, 255, 255, 0.3); /* 柔和的背景颜色 */
+            backdrop-filter: blur(5px); /* 模糊背景图 */
+        }
+
+        .button-group {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<div class="company-name">沐晴科技有限公司</div> <!-- 添加公司名称 -->
+<div style="width: 800px;height: 400px;margin: 20px auto">
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <th lay-data="{field:'name'}">姓名</th>
+            <th lay-data="{field:'password'}">密码</th>
+            <th lay-data="{field:'department'}">部门</th>
+            <th lay-data="{field:'position'}">职位</th>
+            <th lay-data="{field:'salary'}">薪资</th>
+            <th lay-data="{field:'option'}">操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for sal in salary_list %}
+            <tr>
+                <td>{{ sal.name }}</td>
+                <td>{{ sal.password }}</td>
+                <td>{{ sal.department }}</td>
+                <td>{{ sal.position }}</td>
+                <td>{{ sal.salary }}</td>
+                <td>
+                    <a href="/change/{{ sal.name }}" class="layui-btn layui-btn-sm">修改</a>
+                    {% if session['is_admin'] %}
+                        <a href="/delete/{{ sal.name }}" class="layui-btn layui-btn-danger layui-btn-sm"
+                           onclick="return confirm('确认要删除用户 {{ sal.name }} 吗？')">删除</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="/add" class="layui-btn">新增数据</a>
+        <a href="/logout" class="layui-btn layui-btn-danger">退出</a>
+    </div>
+</div>
+
+<script src="/static/layui.js"></script>
+</body>
+</html>

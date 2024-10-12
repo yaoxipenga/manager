@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录页面</title>
+    <link rel="stylesheet" href="/static/css/layui.css">
+    <style>
+        body {
+            background: url("/static/img/index.jpg") no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .container {
+            width: 400px;
+            height: auto;
+            margin: 150px auto;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .company-name {
+            position: absolute; /* 绝对定位 */
+            top: 20px; /* 距离顶部的距离 */
+            left: 20px; /* 距离左边的距离 */
+            font-size: 1.5em; /* 字体大小 */
+            font-weight: bold; /* 加粗 */
+            color: rgba(255, 255, 255, 0.5); /* 浅色，增加透明度 */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* 加强文字阴影 */
+            font-family: 'Microsoft YaHei', sans-serif; /* 字体 */
+            padding: 10px; /* 内边距 */
+            background-image: url('/static/img/company.png'); /* 背景图 */
+            background-size: cover; /* 背景图覆盖 */
+            background-position: center; /* 背景图居中 */
+            border-radius: 8px; /* 边框圆角 */
+            /* 设置背景色以便在图片未加载时有颜色显示 */
+            background-color: rgba(255, 255, 255, 0.3); /* 柔和的背景颜色 */
+            backdrop-filter: blur(5px); /* 模糊背景图 */
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 70px; /* 增加顶部间距 */
+            color: white;
+            font-size: 2.5em;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* 文字阴影 */
+        }
+
+        .button-group {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .captcha-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .captcha-input {
+            width: 100%; /* 适应容器宽度 */
+            margin-right: 10px; /* 增加右侧间距 */
+        }
+
+        .captcha-img {
+            width: 120px;
+            height: 40px; /* 根据需要调整高度 */
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="company-name">沐晴科技有限公司</div> <!-- 添加公司名称 -->
+<h1>员工管理系统</h1>
+<div class="container">
+    <form class="layui-form layui-form-pane" action="/login" method="POST">
+        <div class="layui-form-item">
+            <label class="layui-form-label">用户名</label>
+            <div class="layui-input-block">
+                <input type="text" name="username" autocomplete="off" placeholder="请输入用户名" lay-verify="required"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码</label>
+            <div class="layui-input-block">
+                <input type="password" name="password" placeholder="请输入密码" lay-verify="required" autocomplete="off"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item captcha-container">
+            <input type="text" name="captcha" placeholder="请输入验证码" lay-verify="required" autocomplete="off"
+                   class="layui-input captcha-input">
+            <img src="/captcha" class="captcha-img" alt="验证码" title="点击刷新验证码"
+                 onclick="this.src='/captcha?'+Math.random();">
+        </div>
+        <div class="layui-form-item button-group">
+            <button class="layui-btn" lay-submit lay-filter="demo2">提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </form>
+</div>
+<script src="/static/layui.js"></script>
+</body>
+</html>
